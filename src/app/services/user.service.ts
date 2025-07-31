@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -8,7 +8,13 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.dataUrl);
-  }
+getUsers(): Observable<any[]> {
+  return this.http.get<any[]>(this.dataUrl).pipe(
+    catchError((error) => {
+      console.error('Data fetch failed', error);
+      return of([]); 
+    })
+  );
+}
+
 }
