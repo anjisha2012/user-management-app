@@ -1,20 +1,23 @@
 <table>
   <thead>
     <tr>
-      <th *ngFor="let header of headers">{{ header }}</th>
+      @for (header of headers; track header) {
+        <th>{{ header }}</th>
+      }
     </tr>
   </thead>
   <tbody>
-    <tr
-      *ngFor="let user of users; let i = index"
-      (click)="handleRowClick($event, user)"
-    >
-      <td *ngFor="let key of headers">
-        <input
-          [value]="user[key]"
-          (input)="updateValue($event, i, key)"
-        />
-      </td>
-    </tr>
+    @for (user of users; track user.id; let i = $index) {
+      <tr (click)="handleRowClick($event, user)">
+        @for (key of headers; track key) {
+          <td>
+            <input
+              [value]="user[key]"
+              (input)="updateValue($event, i, key)"
+            />
+          </td>
+        }
+      </tr>
+    }
   </tbody>
 </table>

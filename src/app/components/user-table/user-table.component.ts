@@ -27,7 +27,6 @@ export class UserTableComponent implements OnInit {
   }
 
   onRowClick(user: any): void {
-    debugger;
     this.router.navigate(['/user', user.id]);
   }
 handleRowClick(event: Event, user: any): void {
