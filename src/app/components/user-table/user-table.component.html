@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let header of headers">{{ header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let user of users; let i = index"
+      (click)="handleRowClick($event, user)"
+    >
+      <td *ngFor="let key of headers">
+        <input
+          [value]="user[key]"
+          (input)="updateValue($event, i, key)"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
